@@ -32,51 +32,17 @@ struct CustomToggle: ToggleStyle {
         configuration.label
         
         if(image == ToggleImageType.image) {
-                    HStack {
-                        Image(configuration.isOn ? "IdentidadeVisual" : "IdentidadeVisual")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 51, height: 31, alignment: .center)
-                            .overlay(
-                                Circle()
-                                    .foregroundColor(.white)
-                                    .padding(.all, 3)
-                                    .offset(x: configuration.isOn ? 11 : -11, y: 0)
-                                    .animation(.linear(duration: 0.1), value: configuration.isOn)
-                                    .overlay {
-                                        if(mark == ToggleMarkType.checkmark) {
-                                            Image(systemName: configuration.isOn ? "checkmark" : "xmark")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: 8, height: 8, alignment: .center)
-                                                .foregroundColor(configuration.isOn ? .green : .gray)
-                                                .offset(x: configuration.isOn ? 11 : -11, y: 0)
-                                        } else if(mark == ToggleMarkType.power) {
-                                            Image(systemName: configuration.isOn ? "poweron" : "poweroff")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: 8, height: 8, alignment: .center)
-                                                .foregroundColor(configuration.isOn ? .green : .gray)
-                                                .offset(x: configuration.isOn ? 11 : -11, y: 0)
-                                        } else {
-                                            EmptyView()
-                                        }
-                                    }
-                                    .animation(.linear(duration: 0.1), value: configuration.isOn)
-                            ).cornerRadius(20)
-                            .onTapGesture { configuration.isOn.toggle() }
-                    }
-        } else {
             HStack {
-                RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundStyle(LinearGradient(colors: [Color("academyBlue_old"), Color("academyPurple_old")], startPoint: .leading, endPoint: .trailing))
-                    .frame(width: 51, height: 31)
+                Image(configuration.isOn ? "IdentidadeVisual" : "IdentidadeVisual")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 51, height: 31, alignment: .center)
                     .overlay(
                         Circle()
                             .foregroundColor(.white)
                             .padding(.all, 3)
                             .offset(x: configuration.isOn ? 11 : -11, y: 0)
-                            .animation(.linear(duration: 0.25), value: configuration.isOn)
+                            .animation(.linear(duration: 0.2), value: configuration.isOn)
                             .overlay {
                                 if(mark == ToggleMarkType.checkmark) {
                                     Image(systemName: configuration.isOn ? "checkmark" : "xmark")
@@ -96,10 +62,48 @@ struct CustomToggle: ToggleStyle {
                                     EmptyView()
                                 }
                             }
-                            .animation(.linear(duration: 0.25), value: configuration.isOn)
+                            .animation(.linear(duration: 0.3), value: configuration.isOn)
+                    ).cornerRadius(20)
+                    .onTapGesture { configuration.isOn.toggle() }
+                    .grayscale(configuration.isOn ? 0.0 : 1.0)
+                    .animation(.easeInOut(duration: 0.2), value: configuration.isOn)
+            }
+        } else {
+            HStack {
+                RoundedRectangle(cornerRadius: 25.0)
+                    .foregroundStyle(LinearGradient(colors: [Color("academyBlue_old"), Color("academyPurple_old")], startPoint: .leading, endPoint: .trailing))
+                    .frame(width: 51, height: 31)
+                    .overlay(
+                        Circle()
+                            .foregroundColor(.white)
+                            .padding(.all, 3)
+                            .offset(x: configuration.isOn ? 11 : -11, y: 0)
+                            .animation(.linear(duration: 0.2), value: configuration.isOn)
+                            .overlay {
+                                if(mark == ToggleMarkType.checkmark) {
+                                    Image(systemName: configuration.isOn ? "checkmark" : "xmark")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 8, height: 8, alignment: .center)
+                                        .foregroundColor(configuration.isOn ? .green : .gray)
+                                        .offset(x: configuration.isOn ? 11 : -11, y: 0)
+                                } else if(mark == ToggleMarkType.power) {
+                                    Image(systemName: configuration.isOn ? "poweron" : "poweroff")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 8, height: 8, alignment: .center)
+                                        .foregroundColor(configuration.isOn ? .green : .gray)
+                                        .offset(x: configuration.isOn ? 11 : -11, y: 0)
+                                } else {
+                                    EmptyView()
+                                }
+                            }
+                            .animation(.easeInOut(duration: 0.3), value: configuration.isOn)
                     ).cornerRadius(20)
                     .onTapGesture { configuration.isOn.toggle() }
                     .font(Font.title.weight(.black))
+                    .grayscale(configuration.isOn ? 0.0 : 1.0)
+                    .animation(.easeInOut(duration: 0.2), value: configuration.isOn)
             }
         }
     }
@@ -111,7 +115,7 @@ struct PreviewTest: View {
         Toggle(isOn: $toggle, label: {
             EmptyView()
         })
-        .toggleStyle(CustomToggle(mark: .checkmark, image: .image))
+        .toggleStyle(CustomToggle(mark: .checkmark, image: .gradient))
     }
 }
 
